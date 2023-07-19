@@ -1,0 +1,163 @@
+Certamente! Vou ajudá-lo a criar um projeto usando Node.js, Nest.js, GraphQL com Type-GraphQL, Prisma e MySQL. Siga as etapas abaixo:
+
+Passo 1: Configuração do ambiente
+
+1. Certifique-se de ter o Node.js instalado em seu sistema. Você pode baixá-lo e instalá-lo no site oficial do Node.js (https://nodejs.org).
+
+2. Crie uma nova pasta para o seu projeto e abra um terminal nessa pasta.
+
+3. Inicie um novo projeto Node.js executando o seguinte comando no terminal:
+   ```
+   npm init -y
+   ```
+
+4. Instale as dependências necessárias executando o seguinte comando:
+   ```
+   npm install @nestjs/cli prisma typescript
+   ```
+
+Passo 2: Configuração do Nest.js
+
+1. Crie uma nova aplicação Nest.js executando o seguinte comando no terminal:
+   ```
+   npx nest new meu-projeto
+   ```
+
+2. Navegue até a pasta do projeto:
+   ```
+   cd meu-projeto
+   ```
+
+Passo 3: Configuração do Prisma
+
+1. Instale o Prisma CLI executando o seguinte comando no terminal:
+   ```
+   npm install prisma -D
+   ```
+
+2. Execute o seguinte comando para inicializar o Prisma:
+   ```
+   npx prisma init
+   ```
+
+3. Siga as instruções interativas para configurar o banco de dados MySQL e gerar o arquivo `prisma/schema.prisma` com as configurações necessárias.
+
+4. Atualize o arquivo `prisma/schema.prisma` com o seguinte exemplo:
+   ```prisma
+   datasource db {
+     provider = "mysql"
+     url      = env("DATABASE_URL")
+   }
+
+   generator client {
+     provider = "prisma-client-js"
+   }
+
+   model User {
+     id    Int     @id @default(autoincrement())
+     name  String
+     email String  @unique
+   }
+   ```
+
+5. Execute o seguinte comando para gerar as tabelas do banco de dados com base no arquivo `schema.prisma`:
+   ```
+   npx prisma generate
+   ```
+
+Passo 4: Configuração do GraphQL com Type-GraphQL
+
+1. Instale as dependências do GraphQL e do Type-GraphQL executando o seguinte comando no terminal:
+   ```
+   npm install @nestjs/graphql type-graphql graphql apollo-server-express
+   ```
+
+2. Crie um arquivo `src/user/user.entity.ts` e adicione o seguinte código para definir a entidade "User" usando o Type-GraphQL:
+   ```typescript
+   import { ObjectType, Field, Int } from 'type-graphql';
+
+   @ObjectType()
+   export class User {
+     @Field(() => Int)
+     id: number;
+
+     @Field()
+     name: string;
+
+     @Field()
+     email: string;
+   }
+   ```
+
+3. Crie um arquivo `src/user/user.resolver.ts` e adicione o seguinte código para definir um resolver GraphQL para a entidade "User" usando o Type-GraphQL e o Prisma:
+   ```typescript
+   import { Resolver, Query } from 'type-graphql';
+   import { User } from '../user/user.entity';
+   import { PrismaService } from '../prisma/prisma.service';
+
+   @Resolver(User)
+   export class UserResolver {
+     constructor(private prisma: PrismaService) {}
+
+     @Query(() => [User])
+     async users(): Promise<User[]> {
+       return this.prisma.user.findMany();
+     }
+   }
+   ```
+
+4. Abra o arquivo `src/app.module.ts` e adicione o seguinte código para configurar o GraphQL com o Type-GraphQL:
+   ```typescript
+   import { Module } from '@nestjs/common';
+   import { GraphQLModule } from '@nestjs/graphql';
+   import { UserResolver } from './user/user.resolver';
+   import { PrismaService } from './prisma/prisma.service';
+
+   @Module({
+     imports: [
+       GraphQLModule.forRoot({
+         autoSchemaFile: true,
+       }),
+     ],
+     providers: [PrismaService, UserResolver],
+   })
+   export class AppModule {}
+   ```
+
+Passo 5: Configuração do MySQL
+
+1. Instale a dependência do MySQL para o Prisma executando o seguinte comando no terminal:
+   ```
+   npm install @prisma/client mysql2
+   ```
+
+2. Abra o arquivo `src/prisma/prisma.service.ts` e substitua o conteúdo existente pelo seguinte código:
+   ```typescript
+   import { PrismaClient } from '@prisma/client';
+
+   const prisma = new PrismaClient();
+
+   export default prisma;
+   ```
+
+Passo 6: Execução do projeto
+
+1. Inicie o servidor Nest.js executando o seguinte comando no terminal:
+   ```
+   npm run start:dev
+   ```
+
+2. Abra o navegador e acesse `http://localhost:3000/graphql` para visualizar a interface do GraphQL Playground.
+
+3. Execute a seguinte consulta no GraphQL Playground para obter a lista de usuários:
+   ```graphql
+   query {
+     users {
+       id
+       name
+       email
+     }
+   }
+   ```
+
+Parabéns! Agora você tem um projeto Node.js com Nest.js, GraphQL usando Type-GraphQL, Prisma e MySQL configurados. Você pode expandir esse projeto adicionando mais funcionalidades e consultas ao GraphQL, bem como implementando outras entidades e relacionamentos no banco de dados MySQL usando o Prisma.
