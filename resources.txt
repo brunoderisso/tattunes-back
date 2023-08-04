@@ -1,1 +1,3 @@
-Nest + Prisma + Graphql + MySql
+import { randomUUID } from 'node:crypto'
+
+randomUUID()
