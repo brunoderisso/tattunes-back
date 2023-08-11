@@ -1,20 +1,37 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
+
+import { TattooModel } from './tattoo.model';
+import { AddressModel } from './address.model';
 
 @ObjectType()
 export class TattooMakerModel {
-  email String  @unique
-  phone Int?
-  photoPath String?
-  description String?
-  collection Tattoo[]
-  address Address?
+  @Field()
+  id: string;
 
   @Field()
   name: string;
 
-  @Field()
-  nickname: string;
+  @Field({ nullable: true })
+  nickname?: string;
 
   @Field()
   email: string;
+
+  @Field(() => Int, { nullable: true })
+  phone?: number;
+
+  @Field({ nullable: true })
+  photoPath?: string;
+
+  @Field({ nullable: true })
+  description?: string;
+
+  @Field(() => [TattooModel], { nullable: true })
+  collection?: TattooModel[];
+
+  @Field({ nullable: true })
+  address?: AddressModel;
+
+  @Field(() => [String], { nullable: true })
+  socialMedia?: string[];
 }

@@ -1,0 +1,38 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type TattooModel {
+  id: String!
+  name: String!
+  description: String
+  photoPath: String!
+  tattoMakerId: String!
+}
+
+type AddressModel {
+  publicPlace: String!
+  number: Float!
+  complement: String
+  neighborhood: String!
+  city: String!
+  state: String!
+  zipCode: String!
+}
+
+type TattooMakerModel {
+  id: String!
+  name: String!
+  nickname: String
+  email: String!
+  phone: Int
+  photoPath: String
+  description: String
+  collection: [TattooModel!]
+  address: AddressModel
+  socialMedia: [String!]
+}
+
+type Query {
+  getTattooMaker: TattooMakerModel!
+}

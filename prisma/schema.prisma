@@ -20,6 +20,7 @@ model TattooMaker {
   description String?
   collection Tattoo[]
   address Address?
+  socialMedia SocialMedia[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -45,4 +46,10 @@ model Address {
   zipCode String
   tattoMaker TattooMaker @relation(fields: [tattoMakerId], references: [id])
   tattoMakerId String @id
+}
+
+model SocialMedia {
+  tattoMaker TattooMaker @relation(fields: [tattoMakerId], references: [id])
+  tattoMakerId String @id
+  url String
 }
