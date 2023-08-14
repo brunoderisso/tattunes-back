@@ -1,0 +1,5 @@
+- Instalar mysql
+- criar arquivo .env com link do database
+- rodar: npx prisma generate
+
+- consultar https://docs.nestjs.com/recipes/prisma
