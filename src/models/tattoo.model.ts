@@ -15,5 +15,5 @@ export class TattooModel {
   photoPath: string;
 
   @Field()
-  tattoMakerId: string;
+  tattooMakerId: string;
 }

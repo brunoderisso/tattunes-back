@@ -1,7 +1,7 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 
-@ObjectType()
-export class AddressModel {
+@InputType()
+export class AddressInput {
   @Field()
   publicPlace: string;
 
@@ -22,7 +22,4 @@ export class AddressModel {
 
   @Field()
   zipCode: string;
-
-  @Field()
-  tattooMakerId: string;
 }

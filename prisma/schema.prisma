@@ -15,7 +15,7 @@ model TattooMaker {
   name String
   nickname String?
   email String  @unique
-  phone Int?
+  phone String?
   photoPath String?
   description String?
   collection Tattoo[]
@@ -30,8 +30,8 @@ model Tattoo {
   name String
   description String?
   photoPath String
-  tattoMaker TattooMaker @relation(fields: [tattoMakerId], references: [id])
-  tattoMakerId String
+  tattooMaker TattooMaker @relation(fields: [tattooMakerId], references: [id])
+  tattooMakerId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -44,12 +44,12 @@ model Address {
   city String
   state String
   zipCode String
-  tattoMaker TattooMaker @relation(fields: [tattoMakerId], references: [id])
-  tattoMakerId String @id
+  tattooMaker TattooMaker @relation(fields: [tattooMakerId], references: [id])
+  tattooMakerId String @id
 }
 
 model SocialMedia {
-  tattoMaker TattooMaker @relation(fields: [tattoMakerId], references: [id])
-  tattoMakerId String @id
+  tattooMaker TattooMaker @relation(fields: [tattooMakerId], references: [id])
+  tattooMakerId String @id
   url String
 }

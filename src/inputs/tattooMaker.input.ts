@@ -1,12 +1,9 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
+import { TattooInput } from './tattoo.input';
+import { AddressInput } from './address.input';
 
-import { IsEmail } from 'class-validator';
-
-@ObjectType()
-export class TattooMakerModel {
-  @Field()
-  id: string;
-
+@InputType()
+export class TattooMakerInput {
   @Field()
   name: string;
 
@@ -14,7 +11,6 @@ export class TattooMakerModel {
   nickname?: string;
 
   @Field()
-  @IsEmail()
   email: string;
 
   @Field({ nullable: true })
@@ -26,11 +22,11 @@ export class TattooMakerModel {
   @Field({ nullable: true })
   description?: string;
 
-  @Field({ nullable: true })
-  createdAt?: Date;
+  // @Field(() => [TattooInput], { nullable: true })
+  // collection?: TattooInput[];
 
-  @Field({ nullable: true })
-  updatedAt?: Date;
+  // @Field({ nullable: true })
+  // address?: AddressInput;
 
   // @Field(() => [String], { nullable: true })
   // socialMedia?: string[];
