@@ -10,9 +10,10 @@ type TattooMakerModel {
   phone: String
   photoPath: String
   description: String
-  createdAt: DateTime
-  updatedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
   getAddress: AddressModel!
+  getSocialMedia: [SocialMediaModel!]!
 }
 
 """
@@ -31,12 +32,17 @@ type AddressModel {
   tattooMakerId: String!
 }
 
+type SocialMediaModel {
+  url: String!
+  tattooMakerId: String!
+}
+
 type Query {
-  getTattooMaker: [TattooMakerModel!]!
+  getTattooMakers: [TattooMakerModel!]!
 }
 
 type Mutation {
-  createTattooMaker(tattooMaker: TattooMakerInput!, address: AddressInput!, tattoos: TattooInput!): TattooMakerModel!
+  createTattooMaker(tattooMaker: TattooMakerInput!, address: AddressInput!): TattooMakerModel!
 }
 
 input TattooMakerInput {
@@ -56,10 +62,4 @@ input AddressInput {
   city: String!
   state: String!
   zipCode: String!
-}
-
-input TattooInput {
-  name: String!
-  description: String
-  photoPath: String!
 }

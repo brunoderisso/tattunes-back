@@ -9,7 +9,7 @@ export class TattooModel {
   name: string;
 
   @Field({ nullable: true })
-  description?: string;
+  description?: string | null;
 
   @Field()
   photoPath: string;

@@ -9,7 +9,7 @@ export class AddressModel {
   number: number;
 
   @Field({ nullable: true })
-  complement?: string;
+  complement?: string | null;
 
   @Field()
   neighborhood: string;
