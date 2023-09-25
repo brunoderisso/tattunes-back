@@ -5,8 +5,8 @@ export class AddressModel {
   @Field()
   publicPlace: string;
 
-  @Field()
-  number: number;
+  @Field(() => String)
+  number: string;
 
   @Field({ nullable: true })
   complement?: string | null;

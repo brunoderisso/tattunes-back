@@ -1,7 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
 import { IsEmail } from 'class-validator';
-// import { SocialMediaModel } from './socialMedia.model';
 
 @ObjectType()
 export class TattooMakerModel {
@@ -26,13 +25,4 @@ export class TattooMakerModel {
 
   @Field({ nullable: true })
   description?: string | null;
-
-  // @Field(() => [SocialMediaModel], { nullable: 'itemsAndList' })
-  // socialMedia: SocialMediaModel[];
-
-  @Field()
-  createdAt: Date;
-
-  @Field()
-  updatedAt: Date;
 }

@@ -10,20 +10,13 @@ type TattooMakerModel {
   phone: String
   photoPath: String
   description: String
-  createdAt: DateTime!
-  updatedAt: DateTime!
   getAddress: AddressModel!
   getSocialMedia: [SocialMediaModel!]!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type AddressModel {
   publicPlace: String!
-  number: Float!
+  number: String!
   complement: String
   neighborhood: String!
   city: String!
@@ -33,8 +26,8 @@ type AddressModel {
 }
 
 type SocialMediaModel {
+  id: String!
   url: String!
-  tattooMakerId: String!
 }
 
 type Query {
@@ -42,7 +35,7 @@ type Query {
 }
 
 type Mutation {
-  createTattooMaker(tattooMaker: TattooMakerInput!, address: AddressInput!): TattooMakerModel!
+  createTattooMaker(tattooMaker: TattooMakerInput!, address: AddressInput): TattooMakerModel!
 }
 
 input TattooMakerInput {
@@ -52,11 +45,16 @@ input TattooMakerInput {
   phone: String
   photoPath: String
   description: String
+  socialMedias: [SocialMediaInput]
+}
+
+input SocialMediaInput {
+  url: String!
 }
 
 input AddressInput {
   publicPlace: String!
-  number: Float!
+  number: String!
   complement: String
   neighborhood: String!
   city: String!

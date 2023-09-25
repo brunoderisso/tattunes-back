@@ -38,7 +38,7 @@ model Tattoo {
 
 model Address {
   publicPlace String
-  number Int
+  number String
   complement String?
   neighborhood String
   city String
@@ -49,7 +49,8 @@ model Address {
 }
 
 model SocialMedia {
+  id String @id
   tattooMaker TattooMaker @relation(fields: [tattooMakerId], references: [id])
-  tattooMakerId String @id
+  tattooMakerId String
   url String
 }

@@ -1,7 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 import { IsEmail } from 'class-validator';
-// import { SocialMediaInput } from './socialMedia.input';
+import { SocialMediaInput } from './socialMedia.input';
 
 @InputType()
 export class TattooMakerInput {
@@ -24,6 +24,6 @@ export class TattooMakerInput {
   @Field({ nullable: true })
   description?: string | null;
 
-  // @Field(() => [SocialMediaInput], { nullable: 'itemsAndList' })
-  // urls: SocialMediaInput[] | null;
+  @Field(() => [SocialMediaInput], { nullable: 'itemsAndList' })
+  socialMedias: [SocialMediaInput] | null;
 }

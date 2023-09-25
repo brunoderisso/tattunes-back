@@ -2,8 +2,6 @@ import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
 export class SocialMediaInput {
-  // @Field(() => [String], { nullable: 'itemsAndList' })
-  // urls: string[];
-  @Field()
+  @Field(() => String)
   url: string;
 }
