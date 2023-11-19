@@ -1,6 +1,6 @@
 import { SocialMediaModel } from './../models/socialMedia.model';
 import { TattooMakerModel } from './../models/tattooMaker.model';
-import { AddressInput } from './../inputs/address.input';
+import { AddressInput, PlaceInput } from './../inputs/address.input';
 import { PrismaService } from './../database/prisma.service';
 import { Injectable } from '@nestjs/common';
 
@@ -24,5 +24,26 @@ export class TattooMakerService {
         },
       },
     });
+  }
+
+  async getTattooMakers(searchPlace: PlaceInput) {
+    let where = {};
+
+    if (searchPlace) {
+      where = {
+        address: {
+          AND: {
+            city: {
+              equals: searchPlace.city,
+            },
+            state: {
+              equals: searchPlace.state,
+            },
+          },
+        },
+      };
+    }
+
+    return this.prisma.tattooMaker.findMany({ where });
   }
 }

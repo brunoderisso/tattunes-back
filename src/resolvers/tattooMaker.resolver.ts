@@ -10,9 +10,8 @@ import {
 
 import { randomUUID } from 'node:crypto';
 
-import { PrismaService } from './../database/prisma.service';
 import { TattooMakerModel } from './../models/tattooMaker.model';
-import { AddressInput } from './../inputs/address.input';
+import { AddressInput, PlaceInput } from './../inputs/address.input';
 import { TattooMakerInput } from './../inputs/tattooMaker.input';
 import { AddressModel } from './../models/address.model';
 import { SocialMediaModel } from './../models/socialMedia.model';
@@ -22,15 +21,16 @@ import { AddressService } from '../services/address.service';
 @Resolver(() => TattooMakerModel)
 export class TattooMakerResolver {
   constructor(
-    private prisma: PrismaService,
     private tattooMakerService: TattooMakerService,
     private addressService: AddressService,
     private socialMediaService: SocialMediaService,
   ) {}
 
   @Query(() => [TattooMakerModel])
-  async getTattooMakers() {
-    return this.prisma.tattooMaker.findMany();
+  async getTattooMakers(
+    @Args('searchPlace', { nullable: true }) searchPlace: PlaceInput,
+  ) {
+    return this.tattooMakerService.getTattooMakers(searchPlace);
   }
 
   @ResolveField(() => AddressModel)

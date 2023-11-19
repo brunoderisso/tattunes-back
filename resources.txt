@@ -1,3 +1,6 @@
 import { randomUUID } from 'node:crypto'
 
 randomUUID()
+
+https://www.prisma.io/docs/concepts/components/prisma-client/filtering-and-sorting
+https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries

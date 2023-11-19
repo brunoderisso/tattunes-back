@@ -23,3 +23,12 @@ export class AddressInput {
   @Field()
   zipCode: string;
 }
+
+@InputType()
+export class PlaceInput {
+  @Field()
+  city: string;
+
+  @Field()
+  state: string;
+}

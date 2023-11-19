@@ -31,7 +31,12 @@ type SocialMediaModel {
 }
 
 type Query {
-  getTattooMakers: [TattooMakerModel!]!
+  getTattooMakers(searchPlace: PlaceInput): [TattooMakerModel!]!
+}
+
+input PlaceInput {
+  city: String!
+  state: String!
 }
 
 type Mutation {
